@@ -1,0 +1,18 @@
+import cv2
+import dlib
+
+cap = cv2.imread('9.jpg')
+predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+face_detector = dlib.get_frontal_face_detector()
+gray = cv2.cvtColor(cap, cv2.COLOR_BGR2GRAY)
+faces = face_detector(gray)
+for face in faces:
+    x,y = face.left(), face.top()
+    x1, y1 = face.right(), face.bottom()
+    cv2.rectangle(cap,(x, y), (x1, y1), (0, 255, 0), 2)
+
+cv2.imshow("frame", cap)
+key=cv2.waitKey(0)
+
+if cv2.waitKey(1) & 0xFF == ord('q'):
+    cv2.destroyAllWindows()
