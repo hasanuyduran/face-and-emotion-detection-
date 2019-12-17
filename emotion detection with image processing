@@ -25,10 +25,10 @@ for face in faces:
     eyebrow1_point = (landmarks.part(21).x, landmarks.part(21).y)
     eyebrow2_point = (landmarks.part(22).x, landmarks.part(22).y)
         # burun
-    noise_point = (landmarks.part(27).x, landmarks.part(27).y)
+    nose_point = (landmarks.part(27).x, landmarks.part(27).y)
         # burun_yan
-    noise_point1 = (landmarks.part(31).x, landmarks.part(31).y)
-    noise_point2 = (landmarks.part(35).x, landmarks.part(35).y)
+    nose_point1 = (landmarks.part(31).x, landmarks.part(31).y)
+    nose_point2 = (landmarks.part(35).x, landmarks.part(35).y)
         # göz dik
     eye_down_point = (landmarks.part(37).x, landmarks.part(37).y)
     eye_up_point = (landmarks.part(41).x, landmarks.part(41).y)
@@ -39,27 +39,27 @@ for face in faces:
     hor_line = cv2.line(cap, left_point, right_point, (0, 255, 0), 2)  # ağız_yatay
     vertical_line = cv2.line(cap, up_point, down_point, (0, 255, 0), 2)  # ağız_dikey
     eyebrow_line = cv2.line(cap,eyebrow1_point, eyebrow2_point, (0, 255, 0), 2)  # kas
-    eyebrow1_noise_line = cv2.line(cap, noise_point, eyebrow1_point, (0, 255, 0), 2)  # burun kaş1
-    nose_lip_right_line = cv2.line(cap, noise_point1, left_point, (0, 255, 0), 2)  # burun dudak sol
+    eyebrow1_nose_line = cv2.line(cap, nose_point, eyebrow1_point, (0, 255, 0), 2)  # burun kaş1
+    nose_lip_right_line = cv2.line(cap, nose_point1, left_point, (0, 255, 0), 2)  # burun dudak sol
     eye_vertical_line = cv2.line(cap, eye_down_point, eye_up_point, (0, 255, 0), 2)  # goz dikey
     eye_hor_line = cv2.line(cap, eye_right_point, eye_left_point, (0, 255, 0), 2)  # goz yatay
 
     hor_line_lenght = hypot((left_point[0] - right_point[0]), (left_point[1] - right_point[1]))
     vertical_line_lenght = hypot((up_point[0] - down_point[0]), (up_point[1] - down_point[1]))
-    eyebrow1_nose_line_lenght = hypot((eyebrow1_point[0] - noise_point[0]), (eyebrow1_point[1] - noise_point1[1]))
+    eyebrow1_nose_line_lenght = hypot((eyebrow1_point[0] - nose_point[0]), (eyebrow1_point[1] - nose_point1[1]))
     eyebrow1_eyebrow2_line_lenght = hypot((eyebrow1_point[0] - eyebrow2_point[0]), (eyebrow1_point[1] - eyebrow2_point[1]))
-    noise_lip_right_line_lenght = hypot((noise_point1[0] - left_point[0]), (noise_point1[1] - left_point[1]))
+    nose_lip_right_line_lenght = hypot((nose_point1[0] - left_point[0]), (nose_point1[1] - left_point[1]))
     eye_vertical_line_lenght = hypot((eye_down_point[0] - eye_up_point[0]), (eye_down_point[1] - eye_up_point[1]))
     eye_hor_line_lenght = hypot((eye_right_point[0] - eye_left_point[0]), (eye_right_point[1] - eye_left_point[1]))
 
     ratio1 = (hor_line_lenght / (vertical_line_lenght + 1))
     ratio2 = (eyebrow1_nose_line_lenght / (eyebrow1_eyebrow2_line_lenght + 1))
-    ratio3 = (noise_lip_right_line_lenght / (hor_line_lenght + 1))
+    ratio3 = (nose_lip_right_line_lenght / (hor_line_lenght + 1))
     ratio4 = (eye_hor_line_lenght / (eye_vertical_line_lenght + 1))
 
     print("ratio1", hor_line_lenght / (vertical_line_lenght + 1))
     print("ratio2", eyebrow1_nose_line_lenght / (eyebrow1_eyebrow2_line_lenght + 1))
-    print("ratio3", noise_lip_right_line_lenght / (hor_line_lenght + 1))
+    print("ratio3", nose_lip_right_line_lenght / (hor_line_lenght + 1))
     print("ratio4", eye_hor_line_lenght / (eye_vertical_line_lenght + 1))
 
     if 2 > ratio1 > 1.1 and ratio2 > 0.6 and ratio4 < 2.3:
