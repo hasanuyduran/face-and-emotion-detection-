@@ -1,0 +1,23 @@
+import cv2
+import dlib
+
+cap = cv2.imread('9.jpg')
+predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+face_detector = dlib.get_frontal_face_detector()
+gray = cv2.cvtColor(cap, cv2.COLOR_BGR2GRAY)
+faces = face_detector(gray)
+for face in faces:
+    
+    landmarks = predictor(gray, face)
+
+    for n in range(0, 68):
+        x = landmarks.part(n).x
+        y = landmarks.part(n).y
+        cv2.circle(cap, (x, y), 4, (0, 255, 0), -1)
+
+cv2.imshow("frame", cap)
+
+key=cv2.waitKey(0)
+
+if cv2.waitKey(1) & 0xFF == ord('q'):
+    cv2.destroyAllWindows()
